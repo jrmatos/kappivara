@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Thor API
+  description: Thor is a SSO microservice
+  version: 0.0.1
+servers:
+  - url: http://localhost:3001
+    description: Thor server
+
+components:
+  schemas:
+    UserLoginPOST:
+      properties:
+        email:
+          type: string
+          example: george.lucas@gmail.com
+        password:
+          type: string
+          example: george.lucas123
+    JWT:
+      properties:
+        jwt:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwYXVsb2pvbWF0b3NAZ21haWwuY29tIiwiaWF0IjoxNjI3NzYxMzYwLCJleHAiOjE2Mjc4NDc3NjB9.6Fjlv9dnzJ2681mrvx_W37VVkJPjmNmak6lGY5HlMqM
+
+    VerifyResponse:
+      properties:
+        isValid:
+          type: boolean
+          example: true
+
+paths:
+  /api/auth/login:
+    post:
+      summary: Auth a user
+      requestBody:
+        description: User payload
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/UserLoginPOST'
+      responses:
+        '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/JWT'
+        '401':
+            description: Wrong password or user not found
+            
+
+  /api/auth/verify:
+    post:
+      summary: Verify JWT
+      requestBody:
+        description: User payload
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/JWT'
+      responses:
+        '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/VerifyResponse'
+  
