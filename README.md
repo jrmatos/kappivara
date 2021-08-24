@@ -23,4 +23,4 @@ This project is for studying purposes only. My intention is to use it as a playg
 
 ![Kappivara architecture diagram](https://github.com/jrmatos/kappivara/blob/master/docs/kappivara-diagram.png)
 
-MIT.
+MIT licensed.
